@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GreenGuard | Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .signup-container {
+            background: white;
+            width: 380px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .signup-container h2 {
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+
+        .signup-container p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .input-box {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        .input-box label {
+            font-size: 13px;
+            color: #333;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .input-box input:focus {
+            border-color: #27ae60;
+        }
+
+        .signup-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #27ae60;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .signup-btn:hover {
+            background: #219150;
+        }
+
+        .login-link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            text-decoration: none;
+            color: #27ae60;
+            font-weight: 600;
+        }
+
+        .logo {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        /* Flash messages */
+        .flash-messages {
+            margin-bottom: 15px;
+        }
+        .flash-error {
+            background: #fdecea;
+            color: #c0392b;
+            border: 1px solid #e74c3c;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        .flash-success {
+            background: #eafaf1;
+            color: #1e8449;
+            border: 1px solid #27ae60;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="signup-container">
+        <div class="logo">🌞</div>
+        <h2>GreenGuard</h2>
+        <p>Create your account to predict solar power efficiently</p>
+
+        <!-- FIX: Flash messages display -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- FIX: action="/signup" and method="POST" -->
+        <form action="/signup" method="POST">
+            <div class="input-box">
+                <label>Full Name</label>
+                <input type="text" name="name" placeholder="Enter your name" required>
+            </div>
+
+            <div class="input-box">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="input-box">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Min 8 chars, letters, numbers & symbol" required>
+            </div>
+
+            <div class="input-box">
+                <label>Confirm Password</label>
+                <input type="password" name="confirm_password" placeholder="Re-enter your password" required>
+            </div>
+
+            <button type="submit" class="signup-btn">Sign Up</button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="/login">Login</a>
+        </div>
+    </div>
+
+</body>
+</html>
