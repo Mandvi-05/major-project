@@ -5,164 +5,422 @@
     <title>GreenGuard | Sign Up</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            height: 100vh;
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
         }
 
-        .signup-container {
-            background: white;
-            width: 380px;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
-            text-align: center;
+        body{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-family:'Poppins', sans-serif;
+            overflow:hidden;
+            position:relative;
+
+            background:
+            linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55)),
+            url('https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?q=80&w=1600&auto=format&fit=crop');
+
+            background-size:cover;
+            background-position:center;
         }
 
-        .signup-container h2 {
-            color: #27ae60;
-            margin-bottom: 10px;
+        /* FLOATING SHAPES */
+
+        .circle{
+            position:absolute;
+            border-radius:50%;
+            background:rgba(255,255,255,0.08);
+            animation:float 7s infinite ease-in-out;
         }
 
-        .signup-container p {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 25px;
+        .circle1{
+            width:220px;
+            height:220px;
+            top:-60px;
+            left:-60px;
         }
 
-        .input-box {
-            text-align: left;
-            margin-bottom: 15px;
+        .circle2{
+            width:180px;
+            height:180px;
+            bottom:-50px;
+            right:-50px;
+            animation-delay:2s;
         }
 
-        .input-box label {
-            font-size: 13px;
-            color: #333;
+        @keyframes float{
+
+            0%{
+                transform:translateY(0px);
+            }
+
+            50%{
+                transform:translateY(-20px);
+            }
+
+            100%{
+                transform:translateY(0px);
+            }
+
         }
 
-        .input-box input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            outline: none;
-            box-sizing: border-box;
+        /* SIGNUP CONTAINER */
+
+        .signup-container{
+            width:430px;
+
+            background:rgba(255,255,255,0.12);
+
+            backdrop-filter:blur(18px);
+
+            border:1px solid rgba(255,255,255,0.2);
+
+            border-radius:30px;
+
+            padding:40px;
+
+            color:white;
+
+            box-shadow:0 10px 40px rgba(0,0,0,0.3);
+
+            animation:fadeUp 1s ease;
         }
 
-        .input-box input:focus {
-            border-color: #27ae60;
+        @keyframes fadeUp{
+
+            from{
+                opacity:0;
+                transform:translateY(40px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0px);
+            }
+
         }
 
-        .signup-btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: #27ae60;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
+        /* LOGO */
+
+        .logo{
+            text-align:center;
+            margin-bottom:10px;
         }
 
-        .signup-btn:hover {
-            background: #219150;
+        .logo h1{
+            font-size:36px;
+            color:#7dff9b;
         }
 
-        .login-link {
-            margin-top: 15px;
-            font-size: 14px;
+        .logo p{
+            color:#f1f1f1;
+            font-size:14px;
+            margin-top:8px;
         }
 
-        .login-link a {
-            text-decoration: none;
-            color: #27ae60;
-            font-weight: 600;
+        /* FLASH MESSAGES */
+
+        .flash-messages{
+            margin:20px 0;
         }
 
-        .logo {
-            font-size: 28px;
-            margin-bottom: 10px;
+        .flash-error{
+            background:rgba(231,76,60,0.15);
+            border:1px solid rgba(231,76,60,0.4);
+            color:#ffd2cc;
+            padding:12px;
+            border-radius:12px;
+            font-size:13px;
+            margin-bottom:10px;
         }
 
-        /* Flash messages */
-        .flash-messages {
-            margin-bottom: 15px;
+        .flash-success{
+            background:rgba(46,204,113,0.15);
+            border:1px solid rgba(46,204,113,0.4);
+            color:#d8ffe5;
+            padding:12px;
+            border-radius:12px;
+            font-size:13px;
+            margin-bottom:10px;
         }
-        .flash-error {
-            background: #fdecea;
-            color: #c0392b;
-            border: 1px solid #e74c3c;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 13px;
-            margin-bottom: 8px;
+
+        /* INPUT GROUP */
+
+        .input-group{
+            margin-top:20px;
         }
-        .flash-success {
-            background: #eafaf1;
-            color: #1e8449;
-            border: 1px solid #27ae60;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 13px;
-            margin-bottom: 8px;
+
+        .input-group label{
+            display:block;
+            margin-bottom:8px;
+            font-size:14px;
+            color:#f3f3f3;
         }
+
+        .input-box{
+            position:relative;
+        }
+
+        .input-box i{
+            position:absolute;
+            left:15px;
+            top:50%;
+            transform:translateY(-50%);
+            color:#888;
+        }
+
+        .input-box input{
+            width:100%;
+            padding:14px 14px 14px 45px;
+            border:none;
+            outline:none;
+            border-radius:14px;
+            background:rgba(255,255,255,0.92);
+            font-size:15px;
+            transition:0.3s;
+        }
+
+        .input-box input:focus{
+            transform:scale(1.02);
+            box-shadow:0 0 10px rgba(125,255,155,0.4);
+        }
+
+        /* PASSWORD STRENGTH */
+
+        .password-info{
+            margin-top:8px;
+            font-size:12px;
+            color:#ddd;
+        }
+
+        /* BUTTON */
+
+        .signup-btn{
+            width:100%;
+            margin-top:28px;
+            padding:14px;
+            border:none;
+            border-radius:14px;
+
+            background:linear-gradient(135deg,#2ecc71,#27ae60);
+
+            color:white;
+
+            font-size:16px;
+            font-weight:600;
+
+            cursor:pointer;
+
+            transition:0.3s;
+        }
+
+        .signup-btn:hover{
+            transform:translateY(-4px);
+            box-shadow:0 10px 20px rgba(46,204,113,0.35);
+        }
+
+        /* LOGIN LINK */
+
+        .login-link{
+            text-align:center;
+            margin-top:22px;
+            font-size:14px;
+            color:#eee;
+        }
+
+        .login-link a{
+            color:#7dff9b;
+            text-decoration:none;
+            font-weight:600;
+        }
+
+        .login-link a:hover{
+            text-decoration:underline;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:500px){
+
+            .signup-container{
+                width:100%;
+                margin:20px;
+                padding:35px 25px;
+            }
+
+            .logo h1{
+                font-size:30px;
+            }
+
+        }
+
     </style>
 </head>
+
 <body>
 
-    <div class="signup-container">
-        <div class="logo">🌞</div>
-        <h2>GreenGuard</h2>
-        <p>Create your account to predict solar power efficiently</p>
+    <!-- FLOATING BACKGROUND -->
 
-        <!-- FIX: Flash messages display -->
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+
+    <!-- SIGNUP CARD -->
+
+    <div class="signup-container">
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <h1>🌞 GreenGuard</h1>
+
+            <p>
+                Smart Solar Prediction Platform
+            </p>
+
+        </div>
+
+        <!-- FLASH MESSAGES -->
+
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 <div class="flash-messages">
+
                     {% for category, message in messages %}
-                        <div class="flash-{{ category }}">{{ message }}</div>
+
+                        <div class="flash-{{ category }}">
+                            {{ message }}
+                        </div>
+
                     {% endfor %}
+
                 </div>
             {% endif %}
         {% endwith %}
 
-        <!-- FIX: action="/signup" and method="POST" -->
+        <!-- FORM -->
+
         <form action="/signup" method="POST">
-            <div class="input-box">
+
+            <!-- FULL NAME -->
+
+            <div class="input-group">
+
                 <label>Full Name</label>
-                <input type="text" name="name" placeholder="Enter your name" required>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter your full name"
+                    required>
+
+                </div>
+
             </div>
 
-            <div class="input-box">
-                <label>Email</label>
-                <input type="email" name="email" placeholder="Enter your email" required>
+            <!-- EMAIL -->
+
+            <div class="input-group">
+
+                <label>Email Address</label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required>
+
+                </div>
+
             </div>
 
-            <div class="input-box">
+            <!-- PASSWORD -->
+
+            <div class="input-group">
+
                 <label>Password</label>
-                <input type="password" name="password" placeholder="Min 8 chars, letters, numbers & symbol" required>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                    type="password"
+                    name="password"
+                    placeholder="Create a strong password"
+                    required>
+
+                </div>
+
+                <div class="password-info">
+                    Use at least 8 characters with numbers & symbols
+                </div>
+
             </div>
 
-            <div class="input-box">
+            <!-- CONFIRM PASSWORD -->
+
+            <div class="input-group">
+
                 <label>Confirm Password</label>
-                <input type="password" name="confirm_password" placeholder="Re-enter your password" required>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <input
+                    type="password"
+                    name="confirm_password"
+                    placeholder="Re-enter password"
+                    required>
+
+                </div>
+
             </div>
 
-            <button type="submit" class="signup-btn">Sign Up</button>
+            <!-- BUTTON -->
+
+            <button type="submit" class="signup-btn">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                Create Account
+
+            </button>
+
         </form>
 
+        <!-- LOGIN LINK -->
+
         <div class="login-link">
-            Already have an account? <a href="/login">Login</a>
+
+            Already have an account?
+
+            <a href="/login">Login</a>
+
         </div>
+
     </div>
 
 </body>

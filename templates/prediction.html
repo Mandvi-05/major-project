@@ -1,113 +1,518 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>GreenGuard | Solar Power Prediction</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: #f4f6f8;
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
         }
 
-        header {
-            background: linear-gradient(135deg, #27ae60, #2ecc71);
-            color: white;
-            padding: 20px;
-            text-align: center;
+        body{
+            font-family:'Poppins', sans-serif;
+            min-height:100vh;
+            overflow-x:hidden;
+
+            background:
+            linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.6)),
+            url('https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1600&auto=format&fit=crop');
+
+            background-size:cover;
+            background-position:center;
+            background-attachment:fixed;
+
+            color:white;
         }
 
-        .container {
-            max-width: 500px;
-            margin: 40px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
+        /* NAVBAR */
+
+        .navbar{
+            width:100%;
+            padding:18px 8%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            background:rgba(0,0,0,0.25);
+
+            backdrop-filter:blur(12px);
+
+            position:fixed;
+            top:0;
+            z-index:1000;
         }
 
-        h2 {
-            text-align: center;
-            color: #27ae60;
+        .logo{
+            font-size:30px;
+            font-weight:700;
+            color:#7dff9b;
         }
 
-        label {
-            font-size: 14px;
-            margin-top: 10px;
-            display: block;
+        .nav-links a{
+            text-decoration:none;
+            color:white;
+            margin-left:25px;
+            transition:0.3s;
+            font-weight:500;
         }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
+        .nav-links a:hover{
+            color:#7dff9b;
         }
 
-        button {
-            width: 100%;
-            margin-top: 20px;
-            padding: 12px;
-            background: #27ae60;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
+        /* MAIN SECTION */
+
+        .main{
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:120px 20px 50px;
         }
 
-        button:hover {
-            background: #219150;
+        /* PREDICTION CARD */
+
+        .prediction-card{
+
+            width:100%;
+            max-width:620px;
+
+            background:rgba(255,255,255,0.12);
+
+            backdrop-filter:blur(18px);
+
+            border:1px solid rgba(255,255,255,0.2);
+
+            border-radius:30px;
+
+            padding:40px;
+
+            box-shadow:0 10px 40px rgba(0,0,0,0.3);
+
+            animation:fadeUp 1s ease;
         }
 
-        .result {
-            margin-top: 20px;
-            padding: 15px;
-            background: #eafaf1;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 18px;
-            color: #27ae60;
+        @keyframes fadeUp{
+
+            from{
+                opacity:0;
+                transform:translateY(40px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0px);
+            }
+
         }
 
-        .back {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            text-decoration: none;
-            color: #555;
+        /* HEADER */
+
+        .card-header{
+            text-align:center;
+            margin-bottom:30px;
         }
+
+        .card-header h1{
+            font-size:38px;
+            margin-bottom:10px;
+            color:#7dff9b;
+        }
+
+        .card-header p{
+            color:#f1f1f1;
+            font-size:15px;
+        }
+
+        /* FORM GRID */
+
+        .form-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:20px;
+        }
+
+        .input-group label{
+            display:block;
+            margin-bottom:8px;
+            font-size:14px;
+            color:#f1f1f1;
+        }
+
+        .input-box{
+            position:relative;
+        }
+
+        .input-box i{
+            position:absolute;
+            left:14px;
+            top:50%;
+            transform:translateY(-50%);
+            color:#888;
+        }
+
+        .input-box input{
+            width:100%;
+            padding:14px 14px 14px 45px;
+
+            border:none;
+            outline:none;
+
+            border-radius:14px;
+
+            background:rgba(255,255,255,0.92);
+
+            font-size:15px;
+
+            transition:0.3s;
+        }
+
+        .input-box input:focus{
+            transform:scale(1.02);
+            box-shadow:0 0 10px rgba(125,255,155,0.5);
+        }
+
+        /* BUTTON */
+
+        .predict-btn{
+            width:100%;
+            margin-top:30px;
+            padding:15px;
+
+            border:none;
+            border-radius:16px;
+
+            background:linear-gradient(135deg,#2ecc71,#27ae60);
+
+            color:white;
+
+            font-size:17px;
+            font-weight:600;
+
+            cursor:pointer;
+
+            transition:0.3s;
+        }
+
+        .predict-btn:hover{
+            transform:translateY(-4px);
+            box-shadow:0 10px 25px rgba(46,204,113,0.35);
+        }
+
+        /* RESULT BOX */
+
+        .result{
+
+            margin-top:25px;
+
+            background:rgba(46,204,113,0.15);
+
+            border:1px solid rgba(46,204,113,0.4);
+
+            padding:20px;
+
+            border-radius:18px;
+
+            text-align:center;
+
+            animation:fadeUp 0.6s ease;
+        }
+
+        .result h3{
+            color:#7dff9b;
+            font-size:24px;
+            margin-bottom:10px;
+        }
+
+        .result p{
+            color:#f1f1f1;
+            font-size:15px;
+        }
+
+        /* BACK BUTTON */
+
+        .back-btn{
+            display:inline-block;
+
+            margin-top:25px;
+
+            text-decoration:none;
+
+            color:#7dff9b;
+
+            font-weight:600;
+
+            transition:0.3s;
+        }
+
+        .back-btn:hover{
+            transform:translateX(-5px);
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:700px){
+
+            .form-grid{
+                grid-template-columns:1fr;
+            }
+
+            .prediction-card{
+                padding:30px 22px;
+            }
+
+            .card-header h1{
+                font-size:30px;
+            }
+
+            .nav-links{
+                display:none;
+            }
+
+        }
+
     </style>
 </head>
+
 <body>
 
-<header>
-    <h1>🌞 Solar Power Prediction</h1>
-    <p>Enter weather parameters to predict power output</p>
-</header>
+    <!-- NAVBAR -->
 
-<div class="container">
-    <h2>Prediction Inputs</h2>
+    <nav class="navbar">
 
-    <form method="POST" action="/prediction">
+        <div class="logo">🌞 GreenGuard</div>
 
-    <input type="number" step="any" name="ambient_temp" placeholder="Ambient Temperature" required>
-<input type="number" step="any" name="module_temp" placeholder="Module Temperature" required>
-<input type="number" step="any" name="irradiation" placeholder="Irradiation" required>
-<input type="number" name="hour" placeholder="Hour (0-23)" required>
-<input type="number" name="day_of_week" placeholder="Day (0-6)" required>
-<input type="number" name="month" placeholder="Month (1-12)" required>
-<input type="number" name="plant_id" placeholder="Plant ID" required>
-    <button type="submit">Predict</button>
-</form>
+        <div class="nav-links">
+            <a href="/home">Home</a>
+            <a href="/prediction">Prediction</a>
+            <a href="/login">Logout</a>
+        </div>
 
-<h3>{{ prediction_text }}</h3>
+    </nav>
 
-    <a href="/home" class="back">⬅ Back to Home</a>
-</div>
+    <!-- MAIN -->
+
+    <section class="main">
+
+        <div class="prediction-card">
+
+            <!-- HEADER -->
+
+            <div class="card-header">
+
+                <h1>
+                    Solar Power Prediction
+                </h1>
+
+                <p>
+                    Enter weather and plant details to predict
+                    solar energy generation using Machine Learning
+                </p>
+
+            </div>
+
+            <!-- FORM -->
+
+            <form method="POST" action="/prediction">
+
+                <div class="form-grid">
+
+                    <!-- Ambient Temp -->
+
+                    <div class="input-group">
+
+                        <label>Ambient Temperature</label>
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-temperature-half"></i>
+
+                            <input
+                            type="number"
+                            step="any"
+                            name="ambient_temp"
+                            placeholder="e.g. 32.5"
+                            required>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Module Temp -->
+
+                    <div class="input-group">
+
+                        <label>Module Temperature</label>
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-solar-panel"></i>
+
+                            <input
+                            type="number"
+                            step="any"
+                            name="module_temp"
+                            placeholder="e.g. 40.1"
+                            required>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Irradiation -->
+
+                    <div class="input-group">
+
+                        <label>Irradiation</label>
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-sun"></i>
+
+                            <input
+                            type="number"
+                            step="any"
+                            name="irradiation"
+                            placeholder="e.g. 0.75"
+                            required>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Hour -->
+
+                    <div class="input-group">
+
+                        <label>Hour</label>
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            <input
+                            type="number"
+                            name="hour"
+                            placeholder="0 - 23"
+                            required>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Day -->
+
+                    <div class="input-group">
+
+                        <label>Day of Week</label>
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-calendar-days"></i>
+
+                            <input
+                            type="number"
+                            name="day_of_week"
+                            placeholder="0 - 6"
+                            required>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Month -->
+
+                    <div class="input-group">
+
+                        <label>Month</label>
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-calendar"></i>
+
+                            <input
+                            type="number"
+                            name="month"
+                            placeholder="1 - 12"
+                            required>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Plant ID -->
+
+                    <div class="input-group">
+
+                        <label>Plant ID</label>
+
+                        <div class="input-box">
+
+                            <i class="fa-solid fa-industry"></i>
+
+                            <input
+                            type="number"
+                            name="plant_id"
+                            placeholder="Enter Plant ID"
+                            required>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- BUTTON -->
+
+                <button type="submit" class="predict-btn">
+
+                    <i class="fa-solid fa-bolt"></i>
+
+                    Predict Solar Output
+
+                </button>
+
+            </form>
+
+            <!-- RESULT -->
+
+            {% if prediction_text %}
+
+            <div class="result">
+
+                <h3>Prediction Result</h3>
+
+                <p>{{ prediction_text }}</p>
+
+            </div>
+
+            {% endif %}
+
+            <!-- BACK -->
+
+            <a href="/home" class="back-btn">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back to Home
+
+            </a>
+
+        </div>
+
+    </section>
 
 </body>
 </html>

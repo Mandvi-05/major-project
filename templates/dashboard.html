@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>GreenGuard Dashboard</title>
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:'Poppins', sans-serif;
+
+            background:#0f172a;
+
+            color:white;
+        }
+
+        .navbar{
+
+            padding:20px 8%;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            background:#111827;
+        }
+
+        .logo{
+
+            font-size:30px;
+
+            font-weight:700;
+
+            color:#7dff9b;
+        }
+
+        .nav-links a{
+
+            text-decoration:none;
+
+            color:white;
+
+            margin-left:25px;
+        }
+
+        .header{
+
+            text-align:center;
+
+            padding:50px 20px;
+        }
+
+        .header h1{
+
+            font-size:52px;
+
+            color:#7dff9b;
+
+            margin-bottom:10px;
+        }
+
+        /* CARDS */
+
+        .cards{
+
+            width:90%;
+
+            margin:auto;
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(230px,1fr));
+
+            gap:25px;
+
+            margin-bottom:40px;
+        }
+
+        .card{
+
+            background:#1e293b;
+
+            padding:30px;
+
+            border-radius:20px;
+        }
+
+        .card h2{
+
+            color:#7dff9b;
+
+            margin-bottom:10px;
+        }
+
+        /* CHARTS */
+.charts{
+
+    width:90%;
+
+    margin:auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:40px;
+
+    padding-bottom:60px;
+}
+
+.chart{
+
+    background:#111827;
+
+    border-radius:24px;
+
+    padding:25px;
+
+    width:100%;
+
+    box-shadow:0 8px 25px rgba(0,0,0,0.25);
+}
+
+.plot-container{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    margin-bottom:20px;
+}
+
+.insight{
+
+    background:#1e293b;
+
+    color:white;
+
+    padding:18px;
+
+    border-radius:14px;
+
+    border-left:5px solid #7dff9b;
+}
+
+.insight h3{
+
+    color:#7dff9b;
+
+    margin-bottom:10px;
+}
+
+.insight p{
+
+    color:#f1f5f9;
+
+    line-height:1.7;
+
+    font-size:15px;
+}
+
+.chart{
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,0.12);
+
+    border-radius:24px;
+
+    padding:25px;
+
+    width:100%;
+
+    box-shadow:0 8px 30px rgba(0,0,0,0.25);
+
+    margin-bottom:20px;
+}
+.plot-container{
+
+    margin-bottom:20px;
+}
+
+.charts{
+
+    width:90%;
+
+    margin:auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:35px;
+
+    padding-bottom:60px;
+}
+        }
+        .js-plotly-plot .plotly,
+.js-plotly-plot{
+
+    width:100% !important;
+}
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🌞 GreenGuard
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/home">Home</a>
+
+            <a href="/prediction">Prediction</a>
+
+            <a href="/dashboard">Dashboard</a>
+
+            <a href="/logout">Logout</a>
+
+        </div>
+
+    </nav>
+
+    <!-- HEADER -->
+
+    <section class="header">
+
+        <h1>
+            Solar Analytics Dashboard
+        </h1>
+
+        <p>
+            Welcome back,
+            {{ username }}
+        </p>
+
+    </section>
+
+    <!-- CARDS -->
+
+    <section class="cards">
+
+        <div class="card">
+
+            <h2>
+                ⚡ {{ total_power }}
+            </h2>
+
+            <p>Total Power Generated</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>
+                🌡 {{ avg_temp }}°C
+            </h2>
+
+            <p>Average Temperature</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>
+                🔋 {{ max_power }}
+            </h2>
+
+            <p>Maximum DC Power</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>
+                ☀ {{ avg_irradiation }}
+            </h2>
+
+            <p>Average Irradiation</p>
+
+        </div>
+
+    </section>
+
+    <!-- CHARTS -->
+
+    <section class="charts">
+
+    <!-- CHART 1 -->
+
+    <div class="chart">
+
+        <div class="plot-container">
+            {{ power_graph|safe }}
+        </div>
+
+        <div class="insight">
+            <h3>📌 Insight</h3>
+
+            <p>
+                This graph shows how DC power generation changes over time.
+                Higher peaks indicate stronger solar energy production.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- CHART 2 -->
+
+    <div class="chart">
+
+        <div class="plot-container">
+            {{ compare_graph|safe }}
+        </div>
+
+        <div class="insight">
+            <h3>📌 Insight</h3>
+
+            <p>
+                AC vs DC power comparison helps evaluate inverter efficiency
+                and energy conversion performance.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- CHART 3 -->
+
+    <div class="chart">
+
+        <div class="plot-container">
+            {{ scatter_graph|safe }}
+        </div>
+
+        <div class="insight">
+            <h3>📌 Insight</h3>
+
+            <p>
+                Higher irradiation usually results in higher DC power output,
+                which is essential for prediction analysis.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- CHART 4 -->
+
+    <div class="chart">
+
+        <div class="plot-container">
+            {{ temp_graph|safe }}
+        </div>
+
+        <div class="insight">
+            <h3>📌 Insight</h3>
+
+            <p>
+                High module temperature can reduce solar panel efficiency.
+                Temperature monitoring helps optimize performance.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- CHART 5 -->
+
+    <div class="chart">
+
+        <div class="plot-container">
+            {{ hourly_graph|safe }}
+        </div>
+
+        <div class="insight">
+            <h3>📌 Insight</h3>
+
+            <p>
+                Peak solar power generation usually occurs during midday
+                when sunlight intensity is maximum.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+</body>
+
+</html>
